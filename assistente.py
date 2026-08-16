@@ -4,6 +4,19 @@ from urllib.parse import quote
 import random
 from datetime import datetime
 
+def FirstInicialization():
+    
+def Userinformations():
+    
+    UserBasicInformationsSaveds = {"Name": "Noki"}
+    
+    return UserBasicInformationsSaveds
+
+
+def UserApis():
+    Apis = {}
+    return Apis
+
 
 
 
@@ -79,6 +92,11 @@ def IntelligentSearch():
 
 
     webbrowser.open(url)
+
+def UserInput():
+    
+    Input  = (input(f""))
+
 
 def main():
     ##########################
