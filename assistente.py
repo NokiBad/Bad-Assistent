@@ -8,7 +8,7 @@ def FirstInicialization():
     
 def Userinformations():
     
-    UserBasicInformationsSaveds = {"Name": "Noki"}
+    UserBasicInformationsSaveds = {}
     
     return UserBasicInformationsSaveds
 
