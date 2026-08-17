@@ -32,14 +32,6 @@ def IsnotAdmin():
 
 #########################################
     
-    
-        
-    
-        
-
-
-    
-
 def FirstInicialization(): #Funcção para verificar primeira inicialização
     #procurar pasta BAD-ASSISTENT
     #se ela existe ok se ela n existe
@@ -160,7 +152,10 @@ def UserInput():
 
     #não finalizado
 
-
+#######################################################
+#IMPORTANTISSIMO 
+#CONSERTAR AS BURRADAS QUE EU FIZ NESSE CODIGO, NÃO CONSIGO RETORNAR ESSAS FUNÇÕES #Ass:Noki
+#######################################################
 def AllFunctions():
     AdminPermission()
     FirstInicialization()
@@ -178,13 +173,13 @@ def AllFunctions():
 
     #-------------------------------------
 
+########
+#  TUDO QUE TIVER COM -------> Ass: Noki
+# #NÃO É PRA MEXER EM NADA  QUE TIVER COM ISSO ^^^^^^^
     
+
     
-    
-    
-def returofallfunctions():
-    retorno =  AllFunctions()
-    return retorno
+
 
     
 
