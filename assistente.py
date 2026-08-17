@@ -3,12 +3,78 @@ import webbrowser
 from urllib.parse import quote
 import random
 from datetime import datetime
+import os
+import ctypes
+import sys
 
-def FirstInicialization():
+##########################
+#basicamente a função mais importante do programa por enquanto
+
+def AdminPermission(): #função para programa virar admin 
+
+    
+    try:
+        ctypes.windll.shell32.IsUserAnAdmin()
+        
+    except:
+        return False
+
+def IsnotAdmin():
+    if not AdminPermission():
+        try:
+            ctypes.windll.shell32.ShellExecuteW(
+                None ,  "runas" ,sys.executable , " ". join(sys.argv) , None, 1
+            )
+            sys.exit()
+        except Exception as error:
+            print( print(f"Usuário recusou a elevação ou algo deu errado: {error}"))
+
+
+#########################################
+    
+    
+        
+    
+        
+
+
+    
+
+def FirstInicialization(): #Funcção para verificar primeira inicialização
+    #procurar pasta BAD-ASSISTENT
+    #se ela existe ok se ela n existe
+    #criar a pasta completa
+    DirectorysinProgramFile = []
+    atual = os.getcwd()
+    WalkInDirectorys = os.chdir(r"C:\Program Files")
+    ExistorNot = os.path.exists(r"C:\Program Files\Bad-Config")
+    if ExistorNot == "false":
+        try:
+            # código que pode dar erro
+            os.mkdir(r"C:\Program Files\Bad-Config") 
+
+
+        except PermissionError: #print do erro 
+            print("Não tenho permissão pra criar pastas")
+        try: #criar outras pastas dependentes 
+            os.chdir(r"C:\Program Files\Bad-Config")
+            os.makedirs(r"C:\Program Files\Bad-Config\config", exist_ok=True)
+            os.makedirs(r"C:\Program Files\Bad-Config\UserInformations", exist_ok=True)
+        except PermissionError: 
+                    print("Não tenho permissão pra criar pastas")
+
+
+            
+            
+
+           
     
 def Userinformations():
     
     UserBasicInformationsSaveds = {}
+    #função que vai funcionar de memoria para o assistente
+    #ela sempre vai ler pra ver se n é a primeira inicialização na pasta ou se teve alguma informação diferente  "C:\Program Files\Bad-Config\UserInformations" 
+
     
     return UserBasicInformationsSaveds
 
@@ -85,24 +151,29 @@ def IntelligentSearch():
     SearchRequest =  str(input())
 
     url = f"https://www.google.com/search?q={quote(SearchRequest)}"
-
+    #CONSERTAR ISSO DPS, TEM ALGUM ERRO NA SINTAXE QUE ISSO TÁ PESQUISANDO SEM PEDIR #ass : Noki
     
-
-    
-
-
-    webbrowser.open(url)
 
 def UserInput():
     
     Input  = (input(f""))
 
+    #não finalizado
 
-def main():
+
+def AllFunctions():
+    AdminPermission()
+    FirstInicialization()
+
+    #####
+    #erro em admin permission eu n consigo chamar essa função eu ajeito quando chegar em casa #ass: Noki
+    
     ##########################
     #saudações
-    saudações = salute()
-    return saudações
+    """saudações = salute()
+    return saudações"""
+    
+    
     ##########################
 
     #-------------------------------------
@@ -111,9 +182,9 @@ def main():
     
     
     
-
-
-main()
+def returofallfunctions():
+    retorno =  AllFunctions()
+    return retorno
 
     
 
