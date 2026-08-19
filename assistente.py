@@ -1,4 +1,5 @@
 
+from ast import Return
 import webbrowser
 from urllib.parse import quote
 import random
@@ -6,74 +7,96 @@ from datetime import datetime
 import os
 import ctypes
 import sys
+from dotenv import load_dotenv
+import json
+
+load_dotenv()
 
 ##########################
 #basicamente a função mais importante do programa por enquanto
 
 def AdminPermission(): #função para programa virar admin 
 
-    
     try:
-        ctypes.windll.shell32.IsUserAnAdmin()
-        
+        resultado = ctypes.windll.shell32.IsUserAnAdmin()
+        return resultado
+    except Exception as e:
+            print(f"Erro ao verificar admin: {e}")
+            return False
     except:
-        return False
-
-def IsnotAdmin():
-    if not AdminPermission():
+        return  False
+    #LOGICA CONSERTADA
+    
+   
+    
+    #LOGICA CONSERTADA
+def IsnotAdmin(): 
+    if  AdminPermission() == False:
         try:
             ctypes.windll.shell32.ShellExecuteW(
                 None ,  "runas" ,sys.executable , " ". join(sys.argv) , None, 1
             )
             sys.exit()
+
         except Exception as error:
-            print( print(f"Usuário recusou a elevação ou algo deu errado: {error}"))
+            print(f"Usuário recusou a elevação ou algo deu errado: {error}")
+            sys.exit()
+#FUNÇÕES DE ADMIN FORAM CONSERTADAS
+        
+            
 
 
 #########################################
     
-def FirstInicialization(): #Funcção para verificar primeira inicialização
-    #procurar pasta BAD-ASSISTENT
-    #se ela existe ok se ela n existe
-    #criar a pasta completa
-    DirectorysinProgramFile = []
-    atual = os.getcwd()
-    WalkInDirectorys = os.chdir(r"C:\Program Files")
-    ExistorNot = os.path.exists(r"C:\Program Files\Bad-Config")
-    if ExistorNot == "false":
-        try:
+def FirstInicialization(): 
+    
             # código que pode dar erro
-            os.mkdir(r"C:\Program Files\Bad-Config") 
-
-
-        except PermissionError: #print do erro 
-            print("Não tenho permissão pra criar pastas")
-        try: #criar outras pastas dependentes 
-            os.chdir(r"C:\Program Files\Bad-Config")
+        try:    
+            
             os.makedirs(r"C:\Program Files\Bad-Config\config", exist_ok=True)
             os.makedirs(r"C:\Program Files\Bad-Config\UserInformations", exist_ok=True)
-        except PermissionError: 
-                    print("Não tenho permissão pra criar pastas")
+            print("Pastas criadas com sucesso")
+        except Exception as  error:
+            print(f"algum erro foi encontrado na criação da memoria {error}")
+#função de prrimeira inicialização está com a logica certa
 
-
-            
-            
-
-           
-    
-def Userinformations():
-    
-    UserBasicInformationsSaveds = {}
-    #função que vai funcionar de memoria para o assistente
-    #ela sempre vai ler pra ver se n é a primeira inicialização na pasta ou se teve alguma informação diferente  "C:\Program Files\Bad-Config\UserInformations" 
+#####
+        
 
     
-    return UserBasicInformationsSaveds
+
+
+def MemoryExistence():
+
+    try:
+        os.chdir(r"C:\Program Files\Bad-Config\UserInformations\AssistentMemory")
+        return True
+
+    except:
+        print("Memoria não Encontrada")
+        return False
+
+
+def MemoryCreate():
+    if MemoryExistence() is False:
+        os.makedirs(r"C:\Program Files\Bad-Config\AssistentMemory\TheBrain")
+        dados = {}
+        with open(r"C:\Program Files\Bad-Config\AssistentMemory\TheBrain\Brain.json","w")  as f:
+            f.write(json.dumps(dados))
+        print("Memoria criada com sucesso")
+#função de memoria usada para ser uma memoria local do assistente, usa json para salvar alterações e coisas feitas pelo usuario
+#vai ser implementado uma função de backup, mas só dps que vai ser ligada a essa função e vai deixar mais seguro 
+
+
+###################
+
+
 
 
 def UserApis():
     Apis = {}
     return Apis
+#nada alterado nessa função até agora
 
 
 
@@ -157,16 +180,16 @@ def UserInput():
 #CONSERTAR AS BURRADAS QUE EU FIZ NESSE CODIGO, NÃO CONSIGO RETORNAR ESSAS FUNÇÕES #Ass:Noki
 #######################################################
 def AllFunctions():
-    AdminPermission()
+    IsnotAdmin()
     FirstInicialization()
-
+    MemoryCreate()
     #####
     #erro em admin permission eu n consigo chamar essa função eu ajeito quando chegar em casa #ass: Noki
     
     ##########################
     #saudações
-    """saudações = salute()
-    return saudações"""
+    salute()
+
     
     
     ##########################
@@ -175,9 +198,7 @@ def AllFunctions():
 
 ########
 #  TUDO QUE TIVER COM -------> Ass: Noki
-# #NÃO É PRA MEXER EM NADA  QUE TIVER COM ISSO ^^^^^^^
-    
-
+AllFunctions()
     
 
 
